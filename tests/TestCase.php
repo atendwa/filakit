@@ -2,9 +2,9 @@
 
 namespace Atendwa\Filakit\Tests;
 
+use Atendwa\Filakit\FilakitServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Atendwa\Filakit\FilakitServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,18 +13,11 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Atendwa\\Filakit\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Atendwa\\Filakit\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
-    protected function getPackageProviders($app)
-    {
-        return [
-            FilakitServiceProvider::class,
-        ];
-    }
-
-    public function getEnvironmentSetUp($app)
+    public function getEnvironmentSetUp($app): void
     {
         config()->set('database.default', 'testing');
 
@@ -33,5 +26,12 @@ class TestCase extends Orchestra
             (include $migration->getRealPath())->up();
          }
          */
+    }
+
+    protected function getPackageProviders($app)
+    {
+        return [
+            FilakitServiceProvider::class,
+        ];
     }
 }
