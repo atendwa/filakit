@@ -1,27 +1,30 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "atendwa/filakit",
+    "description": "This is my package filakit",
     "keywords": [
-        ":vendor_name",
+        "atendwa",
         "laravel",
-        ":package_slug"
+        "filakit"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/atendwa/filakit",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "atendwa",
+            "email": "tendwa.am@gnail.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.4",
-        "spatie/laravel-package-tools": "^1.16",
+        "php": "^8.2",
+        "atendwa/support": "^1.0",
+        "bezhansalleh/filament-shield": "^3.3",
+        "filament/filament": "^3.3",
         "illuminate/contracts": "^10.0||^11.0||^12.0"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
+        "rector/rector": "^2.0",
         "nunomaduro/collision": "^8.1.1||^7.10.0",
         "larastan/larastan": "^2.9||^3.0",
         "orchestra/testbench": "^10.0.0||^9.0.0||^8.22.0",
@@ -35,14 +38,15 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
-        }
+            "Atendwa\\Filakit\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "Atendwa\\Filakit\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -63,11 +67,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
-            ],
-            "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
-            }
+                "Atendwa\\Filakit\\Providers\\FilakitServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",
