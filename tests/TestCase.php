@@ -2,9 +2,9 @@
 
 namespace Atendwa\Filakit\Tests;
 
+use Atendwa\Filakit\Providers\FilakitServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Atendwa\Filakit\FilakitServiceProvider;
 
 class TestCase extends Orchestra
 {
