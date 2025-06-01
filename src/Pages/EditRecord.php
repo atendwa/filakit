@@ -29,9 +29,9 @@ class EditRecord extends \Filament\Resources\Pages\EditRecord
         return [
             Action::make('back')->action(fn () => $this->redirect($this->getRedirectUrl(), true))
                 ->icon('heroicon-o-arrow-long-left')->color('gray')->label('Go back'),
-            DeleteAction::make()->authorize($this->destroyable($model)),
-            ForceDeleteAction::make()->authorize($this->destroyable($model, 'force_delete')),
-            RestoreAction::make()->authorize($this->restorable($model)),
+            DeleteAction::make()->visible($this->destroyable($model)),
+            ForceDeleteAction::make()->visible($this->destroyable($model, 'force_delete')),
+            RestoreAction::make()->visible($this->restorable($model)),
             $this->getRefreshAction(),
         ];
     }

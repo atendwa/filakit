@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Atendwa\Filakit\Concerns;
 
-use function Filament\authorize;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -20,7 +19,7 @@ trait HasRecordPageActions
      */
     protected function editable(Model $model): bool
     {
-        return authorize('update', $model)->allowed() && self::fetchResource()::hasPage('edit');
+        return Gate::allows('update', $model) && self::fetchResource()::hasPage('edit');
     }
 
     protected function restorable(Model $model): bool
@@ -30,7 +29,7 @@ trait HasRecordPageActions
 
     protected function destroyable(Model $model, string $ability = 'delete'): bool
     {
-        return authorize($ability, $model)->allowed() && $this->deletable;
+        return Gate::allows($ability, $model) && $this->deletable;
     }
 
     protected function getRefreshUrl(): string

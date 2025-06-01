@@ -29,7 +29,7 @@ class ListRecords extends \Filament\Resources\Pages\ListRecords
     protected function getHeaderActions(): array
     {
         $actions = [
-            CreateAction::make()->authorize($this->creatable()),
+            CreateAction::make()->visible($this->creatable()),
             $this->getRefreshAction(),
         ];
 

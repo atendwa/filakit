@@ -41,7 +41,7 @@ class ViewRecord extends \Filament\Resources\Pages\ViewRecord
         $model = $this->getRecord();
 
         $actions = collect()->push($this->getBackAction())->merge($this->actions())
-            ->push(EditAction::make()->authorize($this->editable($model)));
+            ->push(EditAction::make()->visible($this->editable($model)));
 
         $links = $this->getRelatedLinks();
 
@@ -49,9 +49,9 @@ class ViewRecord extends \Filament\Resources\Pages\ViewRecord
             $actions = $actions->push($links);
         }
 
-        return $actions->push(DeleteAction::make()->authorize($this->destroyable($model)))
-            ->push(ForceDeleteAction::make()->authorize($this->destroyable($model, 'force_delete')))
-            ->push(RestoreAction::make()->authorize($this->restorable($model)))
+        return $actions->push(DeleteAction::make()->visible($this->destroyable($model)))
+            ->push(ForceDeleteAction::make()->visible($this->destroyable($model, 'force_delete')))
+            ->push(RestoreAction::make()->visible($this->restorable($model)))
             ->push($this->getRefreshAction())->flatten()
             ->filter(fn ($action): bool => $action instanceof Action || $action instanceof ActionGroup)->all();
     }
