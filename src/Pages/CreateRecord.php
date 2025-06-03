@@ -9,6 +9,7 @@ use Atendwa\Filakit\Concerns\HasRefreshAction;
 use Atendwa\Filakit\Concerns\InferResourceClassString;
 use Atendwa\Filakit\Concerns\WithBackToIndexAction;
 use Filament\Actions\Action;
+use Illuminate\Database\Eloquent\Model;
 
 class CreateRecord extends \Filament\Resources\Pages\CreateRecord
 {
@@ -26,6 +27,17 @@ class CreateRecord extends \Filament\Resources\Pages\CreateRecord
             $this->getBackAction(),
             $this->getRefreshAction(),
         ];
+    }
+
+    protected function handleRecordCreation(array $data): Model
+    {
+        //        $tenant = Filament::getTenant();
+
+        //        if (static::getResource()::isScopedToTenant() && $tenant) {
+        //            $data['tenant_id'] = $tenant->getKey();
+        //        }
+
+        return $this->getModel()::query()->updateOrCreate($data, $data);
     }
 
     protected function getCreateFormAction(): Action
