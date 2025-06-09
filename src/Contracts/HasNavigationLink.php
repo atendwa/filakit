@@ -21,4 +21,6 @@ interface HasNavigationLink
     public function featureData(): array;
 
     public function featureName(): string;
+
+    public function getId(): string;
 }

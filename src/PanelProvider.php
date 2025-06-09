@@ -93,6 +93,11 @@ abstract class PanelProvider extends ServiceProvider
         ));
     }
 
+    public static function canAccess(): bool
+    {
+        return true;
+    }
+
     /**
      * @return array<class-string>
      */
@@ -112,7 +117,7 @@ abstract class PanelProvider extends ServiceProvider
         return str($this->path ?? $this->getName())->kebab()->lower()->toString();
     }
 
-    protected function getId(): string
+    public function getId(): string
     {
         return str($this->getName())->kebab()->lower()->toString();
     }

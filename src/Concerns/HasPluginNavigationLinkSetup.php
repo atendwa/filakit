@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Atendwa\Filakit\Concerns;
 
+use Atendwa\Filakit\Contracts\HasNavigationLink;
 use Atendwa\Filakit\Widgets\Stat;
-use Illuminate\Database\Eloquent\Model;
+use Filament\Models\Contracts\FilamentUser;
 use Throwable;
 
 trait HasPluginNavigationLinkSetup
@@ -16,20 +17,19 @@ trait HasPluginNavigationLinkSetup
             ->prepend('access')->append('_panel')->snake()->toString();
     }
 
-    public static function canAccess(?Model $model = null, ?string $permission = null): bool
-    {
-        return ($model ?? auth()->user())?->can($permission ?? static::panelAccessPermission()) ?? false;
-    }
-
     /**
      * @throws Throwable
      */
     public function toNavigationItem(): ?Stat
     {
-        $panel = filament()->getPanel($this->getId());
+        $self = asInstanceOf($this, HasNavigationLink::class);
 
-        if (auth()->user()?->canAccessPanel($panel)) {
-            $data = $this->featureData();
+        $panel = filament()->getPanel($self->getId());
+
+        $user = asInstanceOf(auth()->user(), FilamentUser::class);
+
+        if ($user?->canAccessPanel($panel)) {
+            $data = $self->featureData();
 
             return Stat::make($data['label'], $data['name'])->icon($data['icon'])->url(panelUrl($panel))
                 ->color($data['colour'] ?? null)->description($data['description']);
