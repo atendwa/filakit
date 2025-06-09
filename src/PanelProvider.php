@@ -93,7 +93,7 @@ abstract class PanelProvider extends ServiceProvider
         ));
     }
 
-    public static function canAccess(): bool
+    public static function canAccess(string $id): bool
     {
         return true;
     }

@@ -11,7 +11,7 @@ interface HasNavigationLink
 {
     public static function panelAccessPermission(): string;
 
-    public static function canAccess(?Model $model = null): bool;
+    public static function canAccess(string $id): bool;
 
     public function toNavigationItem(): ?Stat;
 
