@@ -98,6 +98,11 @@ abstract class PanelProvider extends ServiceProvider
         return true;
     }
 
+    public function getId(): string
+    {
+        return str($this->getName())->kebab()->lower()->toString();
+    }
+
     /**
      * @return array<class-string>
      */
@@ -115,11 +120,6 @@ abstract class PanelProvider extends ServiceProvider
     protected function getPath(): string
     {
         return str($this->path ?? $this->getName())->kebab()->lower()->toString();
-    }
-
-    public function getId(): string
-    {
-        return str($this->getName())->kebab()->lower()->toString();
     }
 
     protected function getDirectoryName(?string $dir = null): ?string
