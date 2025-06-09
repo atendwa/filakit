@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Atendwa\Filakit\Contracts;
 
 use Atendwa\Filakit\Widgets\Stat;
-use Illuminate\Database\Eloquent\Model;
 
 interface HasNavigationLink
 {
