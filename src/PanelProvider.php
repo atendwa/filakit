@@ -12,6 +12,8 @@ use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
+use Filament\Pages\Page;
+use Filament\Resources\Resource;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -95,7 +97,24 @@ abstract class PanelProvider extends ServiceProvider
 
     public static function canAccess(string $id): bool
     {
-        return true;
+        $panel = filament()->getPanel($id);
+
+        $allow = false;
+
+        collect([$panel->getPages(), $panel->getResources()])->collapse()->values()
+            ->each(function (string $asset) use (&$allow): void {
+                if ($allow) {
+                    return;
+                }
+
+                $asset = app($asset);
+
+                if ($asset instanceof Resource || $asset instanceof Page) {
+                    $allow = $asset::canAccess();
+                }
+            });
+
+        return boolval($allow);
     }
 
     public function getId(): string
