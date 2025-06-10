@@ -13,6 +13,8 @@ trait UsesPluginSetup
 {
     protected ?bool $authorised = null;
 
+    protected ?string $cluster = null;
+
     public function getId(): string
     {
         $class = static::class;
@@ -32,6 +34,13 @@ trait UsesPluginSetup
         return $this;
     }
 
+    public function cluster(Closure|string|null $value = null): self
+    {
+        $this->cluster = ($value instanceof Closure ? $value() : $value);
+
+        return $this;
+    }
+
     public static function get(): Plugin|FilamentManager
     {
         return filament((new self())->getId());
@@ -40,6 +49,11 @@ trait UsesPluginSetup
     public function authorised(): ?bool
     {
         return $this->authorised;
+    }
+
+    public function getCluster(): ?string
+    {
+        return $this->cluster;
     }
 
     public function boot(Panel|\Filament\Panel $panel): void
