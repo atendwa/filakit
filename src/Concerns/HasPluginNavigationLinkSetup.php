@@ -22,14 +22,14 @@ trait HasPluginNavigationLinkSetup
      */
     public function toNavigationItem(): ?Stat
     {
-        $self = asInstanceOf($this, HasNavigationLink::class);
+        $hasNavigationLink = asInstanceOf($this, HasNavigationLink::class);
 
-        $panel = filament()->getPanel($self->getId());
+        $panel = filament()->getPanel($hasNavigationLink->getId());
 
-        $user = asInstanceOf(auth()->user(), FilamentUser::class);
+        $filamentUser = asInstanceOf(auth()->user(), FilamentUser::class);
 
-        if ($user?->canAccessPanel($panel)) {
-            $data = $self->featureData();
+        if ($filamentUser?->canAccessPanel($panel)) {
+            $data = $hasNavigationLink->featureData();
 
             return Stat::make($data['label'], $data['name'])->icon($data['icon'])->url(panelUrl($panel))
                 ->color($data['colour'] ?? null)->description($data['description']);
