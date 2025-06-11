@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Atendwa\Filakit\Components;
 
-use Atendwa\Support\Contracts\Transitionable;
-
 class TextEntry extends \Filament\Infolists\Components\TextEntry
 {
     public function headline(): TextEntry
@@ -15,6 +13,6 @@ class TextEntry extends \Filament\Infolists\Components\TextEntry
 
     public function status(): TextEntry
     {
-        return $this->badge()->color(fn (Transitionable $transitionable): string => $transitionable->badgeColor())->headline();
+        return $this->badge()->color(fn ($record): string => $record->badgeColor())->headline();
     }
 }

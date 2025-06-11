@@ -28,6 +28,6 @@ class TextColumn extends \Filament\Tables\Columns\TextColumn
 
     public function status(): static
     {
-        return $this->badge()->color(fn (Transitionable $transitionable): string => $transitionable->badgeColor())->headline();
+        return $this->badge()->color(fn ($record): string => $record->badgeColor())->headline();
     }
 }
