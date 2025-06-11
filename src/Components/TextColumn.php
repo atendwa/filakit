@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Atendwa\Filakit\Components;
 
-use Atendwa\Support\Contracts\Transitionable;
 use Closure;
 
 class TextColumn extends \Filament\Tables\Columns\TextColumn
