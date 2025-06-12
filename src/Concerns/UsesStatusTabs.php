@@ -56,7 +56,7 @@ trait UsesStatusTabs
     {
         return [
             'all' => Tab::make()->icon('heroicon-o-rectangle-stack')
-                ->badge(asInteger($this->model->getAttribute(''))),
+                ->badge(asInteger($this->model->getAttribute('total'))),
         ];
     }
 
