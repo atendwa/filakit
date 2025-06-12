@@ -12,13 +12,9 @@ trait SharedTableConfiguration
 
     protected static bool $showRecordRouteKeyColumn = true;
 
-    protected static ?Carbon $dateFilterStartDate = null;
-
     protected static bool $configureTableColumns = true;
 
     protected static bool $configureTableFilters = true;
-
-    protected static ?Carbon $dateFilterStartEnd = null;
 
     protected static bool $hasUpdatedAtColumn = true;
 
@@ -33,4 +29,14 @@ trait SharedTableConfiguration
     protected static bool $hasViewAction = true;
 
     protected static ?string $panel = null;
+
+    protected static function dateFilterStartDate(): ?Carbon
+    {
+        return null;
+    }
+
+    protected static function dateFilterEndDate(): ?Carbon
+    {
+        return null;
+    }
 }
