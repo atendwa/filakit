@@ -45,7 +45,7 @@ trait CustomizesResourceTable
         $filters = collect(self::$customTable->getFilters());
 
         when(self::$useDateFilter, fn () => $filters->prepend(
-            date_filter(self::dateFilterStartDate(), self::dateFilterStartDate())
+            date_filter(self::dateFilterStartDate(), self::dateFilterEndDate())
         ));
 
         when(
