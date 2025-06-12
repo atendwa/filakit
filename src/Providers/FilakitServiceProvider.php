@@ -56,13 +56,13 @@ class FilakitServiceProvider extends ServiceProvider
         );
 
         ImportAction::configureUsing(
-            fn (ImportAction $importAction): ImportAction => $importAction->chunkSize(100)->color('gray')
-                ->slideOver()->maxRows(1000)->icon('heroicon-o-document-text')
+            fn (ImportAction $importAction): ImportAction => $importAction->slideOver()->maxRows(1000)
+                ->icon('heroicon-o-document-text')->chunkSize(50)->color('gray')
         );
 
         ExportAction::configureUsing(
             fn (ExportAction $exportAction): ExportAction => $exportAction->color('gray')
-                ->slideOver()->icon('heroicon-o-document-arrow-down')
+                ->slideOver()->icon('heroicon-o-document-arrow-down')->chunkSize(50)
         );
 
         RestoreAction::configureUsing(
