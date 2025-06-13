@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Atendwa\Filakit\Concerns;
 
 use Atendwa\Support\Contracts\HasFilamentTabs;
-use Atendwa\Support\Contracts\Transitionable;
 use Exception;
 use Filament\Resources\Components\Tab;
 use Illuminate\Database\Eloquent\Builder;
