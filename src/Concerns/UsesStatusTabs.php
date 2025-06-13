@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 trait UsesStatusTabs
 {
     private Model $model;
+
     private static string $statusColumn;
 
     /**
