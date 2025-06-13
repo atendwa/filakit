@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Atendwa\Filakit\Concerns;
 
+use Atendwa\Support\Contracts\HasFilamentTabs;
 use Atendwa\Support\Contracts\Transitionable;
 use Exception;
 use Filament\Resources\Components\Tab;
@@ -23,11 +24,11 @@ trait UsesStatusTabs
     {
         $model = app($this->getModel());
 
-        if (! $model instanceof Transitionable) {
+        if (! $model instanceof HasFilamentTabs) {
             return [];
         }
 
-        $states = collect($model->states())->map(fn ($state, $key): array => [$key, $state])->collapse()->unique();
+        $states = collect($model->getFilamentTabs())->unique();
         $final = $model->finalSuccessState();
 
         $this->calculateCounts(asInstanceOf($model, Model::class), arrayOfStrings($states->all()));
