@@ -17,6 +17,6 @@ trait WithBackToIndexAction
 
     protected function backUrl(): string
     {
-        return asString(self::$resource::getUrl());
+        return asString(self::getResource()::getUrl());
     }
 }
