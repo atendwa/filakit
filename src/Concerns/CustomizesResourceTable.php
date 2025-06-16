@@ -26,12 +26,7 @@ trait CustomizesResourceTable
         when(
             self::$hasViewAction,
             fn (): Table => self::$customTable
-                ->actions(
-                    array_merge(
-                        [viewRecordAction(self::$panel)],
-                        self::$customTable->getActions()
-                    )
-                )
+                ->actions(array_merge(self::$customTable->getActions(), [viewRecordAction(self::$panel)]))
         );
 
         return self::$customTable->recordUrl(null);
