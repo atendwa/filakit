@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Atendwa\Filakit\Widgets;
 
+use Atendwa\Filakit\Concerns\UsesLazyWidget;
+
 class StatsOverviewWidget extends \Filament\Widgets\StatsOverviewWidget
 {
-    protected static ?string $pollingInterval = null;
+    use UsesLazyWidget;
 
-    protected static bool $isLazy = false;
-
-    protected int $columns = 2;
+    public int $columns = 2;
 
     protected function getColumns(): int
     {
