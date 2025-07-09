@@ -59,20 +59,20 @@ abstract class PanelProvider extends ServiceProvider
         //            $plugins[] =  ThemesPlugin::make()->canViewThemesPage(fn () => auth()->user()?->hasAnyRole(['super_admin']) ?? false);
         //        }
 
-        Filament::registerPanel(fn (): Panel => $this->panel(
-            Panel::make()->id($this->getId())->brandLogo(asset(asString(config('filakit.theme.logo.light'))))
-                ->favicon(asset(asString(config('filakit.theme.favicon'))))->authMiddleware([Authenticate::class])
-                ->darkModeBrandLogo(asset(asString(config('filakit.theme.logo.dark'))))->path($this->getPath())
+        Filament::registerPanel(function () use ($dir, $namespace) {
+            $panel = Panel::make()->id($this->getId())->brandLogo(asset(asString(config('filakit.theme.logo.light'))))
                 ->discoverResources(base_path($dir->append('Resources')->toString()), $namespace . '\\Resources')
                 ->discoverClusters(base_path($dir->append('Clusters')->toString()), $namespace . '\\Clusters')
                 ->discoverPages(base_path($dir->append('Pages')->toString()), $namespace . '\\Pages')->spa()
-                ->login(asString(config('filakit.login_page')))->maxContentWidth('full')
+                ->favicon(asset(asString(config('filakit.theme.favicon'))))->authMiddleware([Authenticate::class])
                 ->discoverWidgets(base_path($dir->append('Widgets')->toString()), $namespace . '\\Widgets')
-                ->globalSearch()->font(asString(config('filakit.theme.font')))->databaseTransactions()
                 ->unsavedChangesAlerts(fn () => app()->isProduction())->sidebarCollapsibleOnDesktop()->topNavigation()
+                ->darkModeBrandLogo(asset(asString(config('filakit.theme.logo.dark'))))->path($this->getPath())
                 ->databaseNotificationsPolling(null)->pages($this->getPages())->default($this->isDefault)
-                ->viteTheme(asString(config('filakit.theme.css')))->databaseNotifications()
+                ->login(asString(config('filakit.login_page')))->maxContentWidth('full')
+                ->globalSearch()->font(asString(config('filakit.theme.font')))->databaseTransactions()
                 ->brandLogoHeight(fn (): string => [true => '2.75rem', false => '5rem'][auth()->check()])
+                ->viteTheme(asString(config('filakit.theme.css')))->databaseNotifications()
                 ->middleware([
                     DispatchServingFilamentEvent::class, AddQueuedCookiesToResponse::class, AuthenticateSession::class,
                     ShareErrorsFromSession::class, DisableBladeIconComponents::class, SubstituteBindings::class,
@@ -91,8 +91,12 @@ abstract class PanelProvider extends ServiceProvider
                         true => $colours,
                         false => [],
                     };
-                })
-        ));
+                });
+
+            $panel = $panel->plugins($this->getPlugins($panel));
+
+            return $this->panel($panel);
+        });
     }
 
     public static function canAccess(string $id): bool
