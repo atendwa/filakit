@@ -70,7 +70,11 @@ class ViewRecord extends \Filament\Resources\Pages\ViewRecord
             return null;
         }
 
-        $actions = collect($this->relations)->map(fn ($relation): Action => $this->relatedAction($relation));
+        $actions = collect($this->relations)->map(fn ($relation): ?Action => $this->relatedAction($relation))->filter();
+
+        if ($actions->isEmpty()) {
+            return null;
+        }
 
         return match ($actions->count() > 1) {
             true => ActionGroup::make($actions->all())->label('Related Records')->button(),
@@ -83,11 +87,17 @@ class ViewRecord extends \Filament\Resources\Pages\ViewRecord
      *
      * @throws Throwable
      */
-    protected function relatedAction(array $relation): Action
+    protected function relatedAction(array $relation): ?Action
     {
         $name = $relation['relation'];
         $model = $this->getRecord();
         $icon = null;
+
+        $related = $model->$name;
+
+        if (blank($related)) {
+            return null;
+        }
 
         $related = asInstanceOf($model->$name, Model::class);
         $relationship = modelRelation($model, $name);
