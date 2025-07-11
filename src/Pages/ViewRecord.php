@@ -39,9 +39,10 @@ class ViewRecord extends \Filament\Resources\Pages\ViewRecord
     protected function getHeaderActions(): array
     {
         $model = $this->getRecord();
+        $label = mb_strtolower(class_basename($model));
 
         $actions = collect()->push($this->getBackAction())->merge($this->actions())
-            ->push(EditAction::make()->visible($this->editable($model)));
+            ->push(EditAction::make('edit-' . $label)->visible($this->editable($model)));
 
         $links = $this->getRelatedLinks();
 
@@ -49,9 +50,9 @@ class ViewRecord extends \Filament\Resources\Pages\ViewRecord
             $actions = $actions->push($links);
         }
 
-        return $actions->push(DeleteAction::make()->visible($this->destroyable($model)))
-            ->push(ForceDeleteAction::make()->visible($this->destroyable($model, 'force_delete')))
-            ->push(RestoreAction::make()->visible($this->restorable($model)))
+        return $actions->push(DeleteAction::make('delete-' . $label)->visible($this->destroyable($model)))
+            ->push(ForceDeleteAction::make('force-delete-' . $label)->visible($this->destroyable($model, 'force_delete')))
+            ->push(RestoreAction::make('restore-' . $label)->visible($this->restorable($model)))
             ->push($this->getRefreshAction())->flatten()
             ->filter(fn ($action): bool => $action instanceof Action || $action instanceof ActionGroup)->all();
     }
@@ -108,7 +109,7 @@ class ViewRecord extends \Filament\Resources\Pages\ViewRecord
             $icon = $related->getIcon();
         }
 
-        return Action::make(headline($name))->color('gray')->label($label[$relationship instanceof MorphTo])
+        return Action::make('go_to_relation' . $name)->color('gray')->label($label[$relationship instanceof MorphTo])
             ->url(modelUrl($related, panelId: $relation['panel'] ?? null, routeKey: $related->getRouteKey()))
             ->icon($icon);
     }

@@ -24,7 +24,11 @@ trait HasRecordPageActions
 
     protected function restorable(Model $model): bool
     {
-        return Gate::allows('restore', $model);
+        if (! $model->hasAttribute('deleted_at')) {
+            return false;
+        }
+
+        return Gate::allows('restore', $model) && filled($model->getAttribute('deleted_at'));
     }
 
     protected function destroyable(Model $model, string $ability = 'delete'): bool
