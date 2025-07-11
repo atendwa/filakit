@@ -53,12 +53,6 @@ abstract class PanelProvider extends ServiceProvider
     {
         [$namespace, $dir] = $this->paths();
 
-        //        $plugins = [];
-        //
-        //        if (config('filakit.use_themes_plugin')) {
-        //            $plugins[] =  ThemesPlugin::make()->canViewThemesPage(fn () => auth()->user()?->hasAnyRole(['super_admin']) ?? false);
-        //        }
-
         Filament::registerPanel(function () use ($dir, $namespace) {
             $panel = Panel::make()->id($this->getId())->brandLogo(asset(asString(config('filakit.theme.logo.light'))))
                 ->discoverResources(base_path($dir->append('Resources')->toString()), $namespace . '\\Resources')
@@ -69,10 +63,10 @@ abstract class PanelProvider extends ServiceProvider
                 ->unsavedChangesAlerts(fn () => app()->isProduction())->sidebarCollapsibleOnDesktop()->topNavigation()
                 ->darkModeBrandLogo(asset(asString(config('filakit.theme.logo.dark'))))->path($this->getPath())
                 ->databaseNotificationsPolling(null)->pages($this->getPages())->default($this->isDefault)
+                ->viteTheme(asString(config('filakit.theme.css')))->databaseNotifications()->widgets([])
                 ->login(asString(config('filakit.login_page')))->maxContentWidth('full')
                 ->globalSearch()->font(asString(config('filakit.theme.font')))->databaseTransactions()
                 ->brandLogoHeight(fn (): string => [true => '2.75rem', false => '5rem'][auth()->check()])
-                ->viteTheme(asString(config('filakit.theme.css')))->databaseNotifications()
                 ->middleware([
                     DispatchServingFilamentEvent::class, AddQueuedCookiesToResponse::class, AuthenticateSession::class,
                     ShareErrorsFromSession::class, DisableBladeIconComponents::class, SubstituteBindings::class,
