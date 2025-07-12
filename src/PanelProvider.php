@@ -59,7 +59,7 @@ abstract class PanelProvider extends ServiceProvider
                 ->discoverClusters(base_path($dir->append('Clusters')->toString()), $namespace . '\\Clusters')
                 ->discoverPages(base_path($dir->append('Pages')->toString()), $namespace . '\\Pages')->spa()
                 ->favicon(asset(asString(config('filakit.theme.favicon'))))->authMiddleware([Authenticate::class])
-                ->discoverWidgets(base_path($dir->append('Widgets')->toString()), $namespace . '\\Widgets')
+//                ->discoverWidgets(base_path($dir->append('Widgets')->toString()), $namespace . '\\Widgets')
                 ->unsavedChangesAlerts(fn () => app()->isProduction())->sidebarCollapsibleOnDesktop()->topNavigation()
                 ->darkModeBrandLogo(asset(asString(config('filakit.theme.logo.dark'))))->path($this->getPath())
                 ->databaseNotificationsPolling(null)->pages($this->getPages())->default($this->isDefault)
