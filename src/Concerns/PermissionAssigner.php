@@ -2,7 +2,9 @@
 
 namespace Atendwa\Filakit\Concerns;
 
+use BezhanSalleh\FilamentShield\Support\Utils;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use Throwable;
 
@@ -114,8 +116,15 @@ trait PermissionAssigner
     protected function pages(array|string $pages): void
     {
         collect(is_array($pages) ? $pages : [$pages])->each(
-            fn ($page) => $this->permissions->push($page::getPermissionName())
+            fn ($page) => $this->permissions->push($this->pagePermissionName($page))
         );
+    }
+
+    protected function pagePermissionName(string $page): string
+    {
+        return Str::of(class_basename($page))
+            ->prepend(Str::of(Utils::getPagePermissionPrefix())->append('_')->toString())
+            ->toString();
     }
 
     /**
