@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Atendwa\Filakit;
 
+use Atendwa\Filakit\Utils\PanelPermissionResolver;
 use Exception;
 use Filament\Contracts\Plugin;
 use Filament\Facades\Filament;
@@ -95,24 +96,26 @@ abstract class PanelProvider extends ServiceProvider
 
     public static function canAccess(string $id): bool
     {
-        $panel = filament()->getPanel($id);
+        return auth()->user()?->can(app(PanelPermissionResolver::class)->execute(self::class)) ?? false;
 
-        $allow = false;
-
-        collect([$panel->getPages(), $panel->getResources()])->collapse()->values()
-            ->each(function (string $asset) use (&$allow): void {
-                if ($allow) {
-                    return;
-                }
-
-                $asset = app($asset);
-
-                if ($asset instanceof Resource || $asset instanceof Page) {
-                    $allow = $asset::canAccess();
-                }
-            });
-
-        return boolval($allow);
+//        $panel = filament()->getPanel($id);
+//
+//        $allow = false;
+//
+//        collect([$panel->getPages(), $panel->getResources()])->collapse()->values()
+//            ->each(function (string $asset) use (&$allow): void {
+//                if ($allow) {
+//                    return;
+//                }
+//
+//                $asset = app($asset);
+//
+//                if ($asset instanceof Resource || $asset instanceof Page) {
+//                    $allow = $asset::canAccess();
+//                }
+//            });
+//
+//        return boolval($allow);
     }
 
     public function getId(): string
