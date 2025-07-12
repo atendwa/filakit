@@ -98,24 +98,24 @@ abstract class PanelProvider extends ServiceProvider
     {
         return auth()->user()?->can(app(PanelPermissionResolver::class)->execute(self::class)) ?? false;
 
-//        $panel = filament()->getPanel($id);
-//
-//        $allow = false;
-//
-//        collect([$panel->getPages(), $panel->getResources()])->collapse()->values()
-//            ->each(function (string $asset) use (&$allow): void {
-//                if ($allow) {
-//                    return;
-//                }
-//
-//                $asset = app($asset);
-//
-//                if ($asset instanceof Resource || $asset instanceof Page) {
-//                    $allow = $asset::canAccess();
-//                }
-//            });
-//
-//        return boolval($allow);
+        //        $panel = filament()->getPanel($id);
+        //
+        //        $allow = false;
+        //
+        //        collect([$panel->getPages(), $panel->getResources()])->collapse()->values()
+        //            ->each(function (string $asset) use (&$allow): void {
+        //                if ($allow) {
+        //                    return;
+        //                }
+        //
+        //                $asset = app($asset);
+        //
+        //                if ($asset instanceof Resource || $asset instanceof Page) {
+        //                    $allow = $asset::canAccess();
+        //                }
+        //            });
+        //
+        //        return boolval($allow);
     }
 
     public function getId(): string
