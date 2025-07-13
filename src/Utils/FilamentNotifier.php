@@ -18,7 +18,7 @@ class FilamentNotifier
 
         $this->body = $isException ? $body->getMessage() : $body;
 
-        when ($isException, fn () => Log::error($body->getMessage(), [
+        when($isException, fn () => Log::error($body->getMessage(), [
             'user' => auth()->user()?->getKey(), 'exception' => $body]
         ));
     }
