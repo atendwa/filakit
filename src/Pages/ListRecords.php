@@ -33,7 +33,7 @@ class ListRecords extends \Filament\Resources\Pages\ListRecords
             $this->getRefreshAction(),
         ];
 
-        return collect($this->actions())->merge($actions)->filter(fn ($action): bool => $action instanceof Action)->all();
+        return collect($this->actions())->merge($actions)->all();
     }
 
     /**
