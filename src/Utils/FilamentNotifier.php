@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Atendwa\Filakit\Utils;
 
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class FilamentNotifier
@@ -13,7 +14,13 @@ class FilamentNotifier
 
     public function __construct(Throwable|string|null $body)
     {
-        $this->body = $body instanceof Throwable ? $body->getMessage() : $body;
+        $isException = $body instanceof Throwable;
+
+        $this->body = $isException ? $body->getMessage() : $body;
+
+        when ($isException, fn () => Log::error($body->getMessage(), [
+            'user' => auth()->user()?->getKey(), 'exception' => $body]
+        ));
     }
 
     public function success(?string $title = null): void
