@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Atendwa\Filakit\Utils;
 
 use Filament\Notifications\Notification;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Uri;
 use Throwable;
 
 class FilamentNotifier
@@ -18,7 +20,13 @@ class FilamentNotifier
 
         $this->body = $isException ? $body->getMessage() : $body;
 
-        when ($isException, fn () => Log::error($body->getMessage(), [
+        if ($body instanceof ConnectionException) {
+            $url = Uri::of(str($body->getPrevious()->getMessage())->afterLast('for')->squish()->toString());
+
+            $this->body = '⚠️ Unable to reach the external system (' . $url->host() . '). This may be due to network issues or service downtime. Please try again later.';
+        }
+
+        when($isException, fn () => Log::error($body->getMessage(), [
             'user' => auth()->user()?->getKey(), 'exception' => $body]
         ));
     }
