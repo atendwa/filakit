@@ -23,7 +23,7 @@ class FilamentNotifier
         if ($body instanceof ConnectionException) {
             $url = Uri::of(str($body->getPrevious()->getMessage())->afterLast('for')->squish()->toString());
 
-            $this->body = '⚠️ Unable to reach the external system (' . $url->host() . '). This may be due to network issues or service downtime. Please try again later.';
+            $this->body = 'Unable to reach the external system (' . $url->host() . '). This may be due to network issues or service downtime. Please try again later.';
         }
 
         when($isException, fn () => Log::error($body->getMessage(), [
