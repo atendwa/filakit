@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
+use BezhanSalleh\FilamentShield\Facades\FilamentShield;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Model;
 
@@ -64,5 +65,19 @@ if (! function_exists('permission')) {
         throw_if(blank($resource) && blank($model), 'Resource / Model must be provided!');
 
         return $prefix . '_' . FilamentShield::getPermissionIdentifier($resource ?? resource($model)::class);
+    }
+}
+
+if (! function_exists('can')) {
+    /**
+     * @throws Throwable
+     */
+    function can(string $permission, ?string $resource = null, Model|string|null $model = null, bool $qualify = true): bool
+    {
+        if ($qualify) {
+            $permission = permission($permission, $resource, $model);
+        }
+
+        return auth()->user()?->can($permission) ?? false;
     }
 }
