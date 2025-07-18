@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use Throwable;
 
-trait PermissionAssigner
+trait UsesPermissionAssigner
 {
     /**
      * @var Collection<(int|string), mixed>
@@ -117,6 +117,18 @@ trait PermissionAssigner
     {
         collect(is_array($pages) ? $pages : [$pages])->each(
             fn ($page) => $this->permissions->push($this->pagePermissionName($page))
+        );
+    }
+
+    /**
+     * @param  class-string[]|class-string  $widgets
+     *
+     * @throws Throwable
+     */
+    protected function widget(array|string $widgets): void
+    {
+        collect(is_array($widgets) ? $widgets : [$widgets])->each(
+            fn ($widget) => $this->permissions->push($this->getPermissionName($widget))
         );
     }
 
