@@ -128,7 +128,7 @@ trait UsesPermissionAssigner
     protected function widget(array|string $widgets): void
     {
         collect(is_array($widgets) ? $widgets : [$widgets])->each(
-            fn ($widget) => $this->permissions->push($this->getPermissionName($widget))
+            fn ($widget) => $this->permissions->push(invade($widget)->method('getPermissionName'))
         );
     }
 
