@@ -15,6 +15,4 @@ interface HasFilamentTabs
     public static function getFilamentTabs(): array;
 
     public function getFilamentTabColumn(): string;
-
-    public function finalSuccessStates(): string;
 }
