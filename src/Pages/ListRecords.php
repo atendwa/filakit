@@ -10,6 +10,7 @@ use Atendwa\Filakit\Concerns\InferResourceClassString;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
+use Illuminate\Support\Facades\Gate;
 use function Filament\authorize;
 use Throwable;
 
@@ -51,7 +52,7 @@ class ListRecords extends \Filament\Resources\Pages\ListRecords
     {
         return every([
             self::fetchResource()::hasPage('create'),
-            authorize('create', self::getModel()),
+            Gate::allows('create', self::getModel()),
             $this->creatable,
         ]);
     }
