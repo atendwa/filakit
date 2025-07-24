@@ -11,25 +11,25 @@ use Throwable;
 
 trait CustomizesResourceTable
 {
-    protected static Table $table;
+    protected static Table $customTable;
 
     /**
      * @throws Throwable
      */
     protected static function customTable(): Table
     {
-        $model = asInstanceOf(app(self::$table->getModel()), Model::class);
+        $model = asInstanceOf(app(self::$customTable->getModel()), Model::class);
 
         when(self::$configureTableColumns, fn () => self::configureColumns($model));
         when(self::$configureTableFilters, fn () => self::configureFilters($model));
 
         when(
             self::$hasViewAction,
-            fn (): Table => self::$table
-                ->actions(array_merge(self::$table->getActions(), [viewRecordAction(self::$panel)]))
+            fn (): Table => self::$customTable
+                ->actions(array_merge(self::$customTable->getActions(), [viewRecordAction(self::$panel)]))
         );
 
-        return self::$table->recordUrl(null);
+        return self::$customTable->recordUrl(null);
     }
 
     /**
@@ -37,7 +37,7 @@ trait CustomizesResourceTable
      */
     private static function configureFilters(Model $model): void
     {
-        $filters = collect(self::$table->getFilters());
+        $filters = collect(self::$customTable->getFilters());
 
         when(self::$useDateFilter, fn () => $filters->prepend(
             date_filter(self::dateFilterStartDate(), self::dateFilterEndDate())
@@ -55,14 +55,14 @@ trait CustomizesResourceTable
 
         when(self::$useIsActiveFilter, fn () => $filters->push(isActive_filter()));
 
-        self::$table->filters($filters->values()->all());
+        self::$customTable->filters($filters->values()->all());
     }
 
     private static function configureColumns(Model $model): void
     {
         $key = $model->getRouteKeyName();
 
-        $columns = collect(self::$table->getColumns());
+        $columns = collect(self::$customTable->getColumns());
 
         when(self::$showRecordRouteKeyColumn, fn () => $columns->prepend(
             column($key, true)->label('Identifier')
@@ -76,6 +76,6 @@ trait CustomizesResourceTable
             column('updated_at', true)->dateTime('D, d M Y, H:m')
         ));
 
-        self::$table->columns($columns->all());
+        self::$customTable->columns($columns->all());
     }
 }
