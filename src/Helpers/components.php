@@ -127,3 +127,10 @@ if (! function_exists('navigationWidget')) {
         return Stat::make('', $label)->description($text)->url($url);
     }
 }
+
+if (! function_exists('slugColumn')) {
+    function slugColumn(string $column = 'slug', string $label = 'Code'): TextColumn
+    {
+        return column($column)->label($label);
+    }
+}
