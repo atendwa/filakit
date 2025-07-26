@@ -98,8 +98,10 @@ if (! function_exists('badgeEntry')) {
 if (! function_exists('select')) {
     function select(string $name, bool $required = true): Select
     {
+        $placeholder = str($name)->before('_id')->headline()->lower()->toString();
+
         return Select::make($name)->required($required)->placeholder(
-            fn ($context): string => $context == 'view' ? 'N/A' : 'Select ' . mb_strtolower(headline($name))
+            fn ($context): string => $context == 'view' ? 'N/A' : 'Select ' . $placeholder
         );
     }
 }
