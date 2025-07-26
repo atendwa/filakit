@@ -11,7 +11,6 @@ use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
 use Illuminate\Support\Facades\Gate;
-use function Filament\authorize;
 use Throwable;
 
 class ListRecords extends \Filament\Resources\Pages\ListRecords
@@ -50,10 +49,13 @@ class ListRecords extends \Filament\Resources\Pages\ListRecords
      */
     protected function creatable(): bool
     {
+        if (! $this->creatable) {
+            return false;
+        }
+
         return every([
             self::fetchResource()::hasPage('create'),
             Gate::allows('create', self::getModel()),
-            $this->creatable,
         ]);
     }
 }
