@@ -80,25 +80,25 @@ trait CustomizesFilamentResource
     {
         return parent::getEloquentQuery()->withoutGlobalScopes(self::scopes());
     }
-
-    /**
-     * @return array<string>
-     */
-    public static function getRelations(): array
-    {
-        try {
-            $path = str(static::class);
-            $namespace = mb_strtolower((string) $path->explode('\\')->first());
-            $path = $path->append('\RelationManagers')->replace('\\', '/');
-            $path = base_path($path->replaceFirst(ucfirst($namespace), $namespace)->toString());
-
-            return collect(File::files($path))->map(fn (SplFileInfo $file) => app(inferFileClass($file)))
-                ->filter(fn ($class): bool => $class instanceof RelationManager)->map(fn ($class) => $class::class)
-                ->all();
-        } catch (Throwable) {
-            return [];
-        }
-    }
+//
+//    /**
+//     * @return array<string>
+//     */
+//    public static function getRelations(): array
+//    {
+//        try {
+//            $path = str(static::class);
+//            $namespace = mb_strtolower((string) $path->explode('\\')->first());
+//            $path = $path->append('\RelationManagers')->replace('\\', '/');
+//            $path = base_path($path->replaceFirst(ucfirst($namespace), $namespace)->toString());
+//
+//            return collect(File::files($path))->map(fn (SplFileInfo $file) => app(inferFileClass($file)))
+//                ->filter(fn ($class): bool => $class instanceof RelationManager)->map(fn ($class) => $class::class)
+//                ->all();
+//        } catch (Throwable) {
+//            return [];
+//        }
+//    }
 
     /**
      * @return array<string, PageRegistration>
