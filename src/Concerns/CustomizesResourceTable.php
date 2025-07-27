@@ -32,6 +32,11 @@ trait CustomizesResourceTable
         return self::$customTable->recordUrl(null);
     }
 
+    protected static function useTenantOwnershipFilter(): bool
+    {
+        return false;
+    }
+
     /**
      * @throws Throwable
      */
@@ -44,7 +49,7 @@ trait CustomizesResourceTable
         ));
 
         when(
-            self::$useTenantOwnershipFilter,
+            self::useTenantOwnershipFilter(),
             fn () => $filters->push(relation_filter(filament()->getTenantOwnershipRelationshipName()))
         );
 
