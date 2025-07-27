@@ -6,6 +6,7 @@ use Atendwa\Filakit\Components\TextColumn;
 use Atendwa\Filakit\Components\TextEntry;
 use Atendwa\Filakit\Components\TextInput;
 use Atendwa\Filakit\Widgets\Stat;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -103,6 +104,13 @@ if (! function_exists('select')) {
         return Select::make($name)->required($required)->label(headline($placeholder))->placeholder(
             fn ($context): string => $context == 'view' ? 'N/A' : 'Select ' . $placeholder
         );
+    }
+}
+
+if (! function_exists('hidden')) {
+    function hidden(string $name, bool $required = true): Hidden
+    {
+        return Hidden::make($name)->required($required);
     }
 }
 
