@@ -21,9 +21,4 @@ class Resource extends \Filament\Resources\Resource
     public static array $relations = [];
 
     protected static ?string $defaultRecordTitleAttribute = 'name';
-
-    public static function getRelations(): array
-    {
-        return self::$relations;
-    }
 }

@@ -80,6 +80,12 @@ trait CustomizesFilamentResource
     {
         return parent::getEloquentQuery()->withoutGlobalScopes(self::scopes());
     }
+
+    public static function getRelations(): array
+    {
+        return self::$relations;
+    }
+
 //
 //    /**
 //     * @return array<string>
