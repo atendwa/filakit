@@ -50,7 +50,7 @@ class TextInput extends \Filament\Forms\Components\TextInput
 
     public function relation(string $relation, string $column = 'name'): TextInput
     {
-        return $this->label(ucfirst($relation))->formatStateUsing(function (Model $record) use ($column, $relation) {
+        return $this->label(headline($relation))->formatStateUsing(function (Model $record) use ($column, $relation) {
             $relation = $record->getRelationValue(mb_strtolower($relation));
 
             if ($relation instanceof Model) {

@@ -21,4 +21,12 @@ class Resource extends \Filament\Resources\Resource
     public static array $relations = [];
 
     protected static ?string $defaultRecordTitleAttribute = 'name';
+
+    /**
+     * @throws Throwable
+     */
+    protected static function model(): Model
+    {
+        return asInstanceOf(app(self::getModel()), Model::class);
+    }
 }
