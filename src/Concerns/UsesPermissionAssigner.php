@@ -2,6 +2,7 @@
 
 namespace Atendwa\Filakit\Concerns;
 
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -38,10 +39,22 @@ trait UsesPermissionAssigner
      */
     protected function all(array|string $resources): void
     {
-        $this->specific($resources, 'review');
-        $this->migrate($resources);
-        $this->destroy($resources);
-        $this->basic($resources);
+        $resources = is_array($resources) ? $resources : [$resources];
+
+        collect($resources)->each(function (string $resource) {
+            $object = app($resource);
+
+            if ($object instanceof HasShieldPermissions) {
+                $this->custom($resource, $object::getPermissionPrefixes());
+
+                return;
+            }
+
+            $this->specific($resource, 'review');
+            $this->migrate($resource);
+            $this->destroy($resource);
+            $this->basic($resource);
+        });
     }
 
     /**
