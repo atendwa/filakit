@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Atendwa\Support\Contracts\Toggleable;
 use Atendwa\Support\Contracts\Transitionable;
+use Atendwa\Support\Services\FindClassesUsingTrait;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\BaseFilter;
 use Filament\Tables\Filters\Filter;
@@ -31,6 +32,22 @@ if (! function_exists('isActive_filter')) {
 
                 return true;
             });
+    }
+}
+
+if (! function_exists('type_filter')) {
+    /**
+     * @param  class-string  $trait
+     *
+     * @throws Exception
+     */
+    function type_filter(string $name, string $trait): SelectFilter
+    {
+        return SelectFilter::make($name)->searchable()->options(function () use ($trait) {
+            $classes = app(FindClassesUsingTrait::class)->execute($trait, app_path());
+
+            return collect($classes)->mapWithKeys(fn ($class) => [$class => headline(class_basename($class))])->all();
+        });
     }
 }
 
