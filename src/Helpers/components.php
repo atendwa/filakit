@@ -114,6 +114,13 @@ if (! function_exists('hidden')) {
     }
 }
 
+if (! function_exists('status')) {
+    function status(string $name = 'status'): TextColumn
+    {
+        return column($name)->status();
+    }
+}
+
 if (! function_exists('relationship')) {
     function relationship(string $relation, string $title = 'name', bool $required = true, ?string $key = null): Select
     {
