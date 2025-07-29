@@ -15,7 +15,7 @@ class TextColumn extends \Filament\Tables\Columns\TextColumn
 
     public function class(): static
     {
-        return $this->formatStateUsing(fn (string $state) => class_basename($state));
+        return $this->formatStateUsing(fn (string $state) => headline(class_basename($state)));
     }
 
     public function badge(bool|Closure $condition = true): static
