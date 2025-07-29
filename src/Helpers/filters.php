@@ -35,13 +35,13 @@ if (! function_exists('isActive_filter')) {
     }
 }
 
-if (! function_exists('type_filter')) {
+if (! function_exists('typeFilter')) {
     /**
      * @param  class-string  $trait
      *
      * @throws Exception
      */
-    function type_filter(string $name, string $trait): SelectFilter
+    function typeFilter(string $name, string $trait): SelectFilter
     {
         return SelectFilter::make($name)->searchable()->options(function () use ($trait) {
             $classes = app(FindClassesUsingTrait::class)->execute($trait, app_path());
