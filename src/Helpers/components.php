@@ -144,10 +144,10 @@ if (! function_exists('viewRecordAction')) {
                     return null;
                 }
 
-                return modelUrl((determineActionModel($record, $relation)), $route, $panel);
+                return modelUrl(($record), $route, $panel);
             })
             ->visible(function ($record) use ($relation) {
-                $record = determinActionModel($record, $relation);
+                $record = determineActionModel($record, $relation);
 
                 return filled($record) && Gate::allows('view', $record);
             });

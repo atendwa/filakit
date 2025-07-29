@@ -45,7 +45,7 @@ class TextInput extends \Filament\Forms\Components\TextInput
 
     public function class(): TextInput
     {
-        return $this->formatStateUsing(fn (?string $state) => filled($state) ? class_basename($state) : 'N/A');
+        return $this->formatStateUsing(fn (?string $state) => filled($state) ? headline(class_basename($state)) : 'N/A');
     }
 
     public function relation(string $relation, string $column = 'name'): TextInput
