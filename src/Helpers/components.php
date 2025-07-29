@@ -173,8 +173,15 @@ if (! function_exists('navigationWidget')) {
 }
 
 if (! function_exists('slugColumn')) {
-    function slugColumn(string $column = 'slug', string $label = 'Code'): TextColumn
+    function slugColumn(string $column = 'slug', string $label = 'Identifier'): TextColumn
     {
         return column($column)->label($label);
+    }
+}
+
+if (! function_exists('slugInput')) {
+    function slugInput(string $column = 'slug', string $label = 'Identifier'): TextInput
+    {
+        return textInput($column)->label($label);
     }
 }
