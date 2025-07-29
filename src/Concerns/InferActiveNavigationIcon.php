@@ -10,8 +10,8 @@ trait InferActiveNavigationIcon
             return self::$activeNavigationIcon;
         }
 
-        if (filled(self::$navigationIcon)) {
-            return str(self::$navigationIcon)->replace('-o-', '-s-')->toString();
+        if (filled(self::getNavigationIcon())) {
+            return str(self::getNavigationIcon())->replace('-o-', '-s-')->toString();
         }
 
         return null;
