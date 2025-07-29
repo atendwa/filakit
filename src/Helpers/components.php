@@ -131,10 +131,37 @@ if (! function_exists('relationship')) {
 }
 
 if (! function_exists('viewRecordAction')) {
-    function viewRecordAction(?string $panel = null, string $route = 'view'): ViewAction
+    function viewRecordAction(?string $panel = null, string $route = 'view', ?string $relation = null): ViewAction
     {
-        return ViewAction::make()->url(fn ($record): string => modelUrl(asInstanceOf($record, Model::class), $route, $panel))
-            ->visible(fn ($record) => Gate::allows('view', $record))->label('View');
+        $name = str('view-' . $relation . '-action')->replace('--', '-')->toString();
+        $action = ViewAction::make($name)->label(trim(headline('View ' . $relation)));
+
+        return $action
+            ->url(function ($record) use ($relation, $route, $panel) {
+                $record = determineActionModel($record, $relation);
+
+                if (blank($record)) {
+                    return null;
+                }
+
+                return modelUrl((determineActionModel($record, $relation)), $route, $panel);
+            })
+            ->visible(function ($record) use ($relation) {
+                $record = determinActionModel($record, $relation);
+
+                return filled($record) && Gate::allows('view', $record);
+            });
+    }
+}
+
+if (! function_exists('determineActionModel')) {
+    function determineActionModel(Model $model, ?string $relation = null): ?Model
+    {
+        if (blank($relation)) {
+            return $model;
+        }
+
+        return $model->getRelationValue($relation);
     }
 }
 
