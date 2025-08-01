@@ -48,34 +48,34 @@ declare(strict_types=1);
     <div class="grid">
         @if(filled($getLabel()))
             <div
-                @class([
-                    'flex items-center gap-x-2 mb-5 ring-1 ring-inset rounded-full pr-4 whitespace-nowrap py-1.5 pl-3 w-min dark:bg-gray-800 dark:ring-white/10 dark:text-slate-100',
-                    match ($descriptionColor) {
-                        'red' => 'bg-red-50 text-red-700 ring-red-600/10',
-                        'blue' => 'bg-blue-50 text-blue-700 ring-blue-600/10',
-                        'purple' => 'bg-purple-50 text-purple-700 ring-purple-600/10',
-                        'green' => 'bg-green-50 text-green-700 ring-green-600/10',
-                        'orange' => 'bg-orange-50 text-orange-700 ring-orange-600/10',
-                        'amber' => 'bg-amber-50 text-amber-700 ring-amber-600/10',
-//                        'gray' => '',
-                        default => 'bg-gray-50 text-gray-600 ring-gray-500/10',
-                    },
-                ])
-                {{--                class="flex items-center gap-x-2 border rounded-full pr-4 whitespace-nowrap py-1.5 pl-3 w-min"--}}
-        >
-            @if ($icon = $getIcon())
-                <x-filament::icon
-                        :icon="$icon"
-                        class="fi-wi-stats-overview-stat-icon h-5 w-5 text-gray-400dark:text-gray-500"
-                />
-            @endif
-
-            <span
-                    class="fi-wi-stats-overview-stat-label text-sm font-medium text-gray-500dark:text-gray-400"
+                    @class([
+                        'flex items-center gap-x-2 mb-5 ring-1 ring-inset rounded-full pr-4 whitespace-nowrap py-1.5 pl-3 w-min dark:bg-gray-800 dark:ring-white/10 dark:text-slate-100',
+                        match ($descriptionColor) {
+                            'red' => 'bg-red-50 text-red-700 ring-red-600/10',
+                            'blue' => 'bg-blue-50 text-blue-700 ring-blue-600/10',
+                            'purple' => 'bg-purple-50 text-purple-700 ring-purple-600/10',
+                            'green' => 'bg-green-50 text-green-700 ring-green-600/10',
+                            'orange' => 'bg-orange-50 text-orange-700 ring-orange-600/10',
+                            'amber' => 'bg-amber-50 text-amber-700 ring-amber-600/10',
+    //                        'gray' => '',
+                            default => 'bg-gray-50 text-gray-600 ring-gray-500/10',
+                        },
+                    ])
+                    {{--                class="flex items-center gap-x-2 border rounded-full pr-4 whitespace-nowrap py-1.5 pl-3 w-min"--}}
             >
+                @if ($icon = $getIcon())
+                    <x-filament::icon
+                            :icon="$icon"
+                            class="fi-wi-stats-overview-stat-icon h-5 w-5 text-gray-400dark:text-gray-500"
+                    />
+                @endif
+
+                <span
+                        class="fi-wi-stats-overview-stat-label text-sm font-medium text-gray-500dark:text-gray-400"
+                >
                 {{ $getLabel() }}
             </span>
-        </div>
+            </div>
         @endif
 
         <div
@@ -125,13 +125,15 @@ declare(strict_types=1);
         @endif
     </div>
 
-    <div class="p-3 rounded-full bg-slate-50 ring-1 ring-gray-950/10 dark:bg-gray-800 dark:ring-white/10 hidden lg:flex">
-        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-             class="-rotate-45 size-6 group-hover:rotate-0 group-focus:rotate-0 transition-all duration-500"
-        >
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-        </svg>
-    </div>
+    @if(filled($url))
+        <div class="p-3 rounded-full bg-slate-50 ring-1 ring-gray-950/10 dark:bg-gray-800 dark:ring-white/10 hidden lg:flex">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                 class="-rotate-45 size-6 group-hover:rotate-0 group-focus:rotate-0 transition-all duration-500"
+            >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/>
+            </svg>
+        </div>
+    @endif
 </div>
 
 
