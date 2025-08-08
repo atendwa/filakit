@@ -8,6 +8,7 @@ use Atendwa\Filakit\Concerns\SharedTableConfiguration;
 use Filament\Resources\RelationManagers\RelationGroup;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\RelationManagers\RelationManagerConfiguration;
+use Illuminate\Database\Eloquent\Model;
 
 class Resource extends \Filament\Resources\Resource
 {
