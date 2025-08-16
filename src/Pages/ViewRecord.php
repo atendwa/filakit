@@ -111,6 +111,6 @@ class ViewRecord extends \Filament\Resources\Pages\ViewRecord
 
         return Action::make('go_to_relation' . $name)->color('gray')->label($label[$relationship instanceof MorphTo])
             ->url(modelUrl($related, panelId: $relation['panel'] ?? null, routeKey: $related->getRouteKey()))
-            ->icon($icon);
+            ->visible(Gate::allows('view', $related))->icon($icon);
     }
 }
