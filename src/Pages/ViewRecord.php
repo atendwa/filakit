@@ -17,6 +17,7 @@ use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Facades\Gate;
 use Throwable;
 
 class ViewRecord extends \Filament\Resources\Pages\ViewRecord
