@@ -14,6 +14,20 @@ class TextInput extends \Filament\Forms\Components\TextInput
         return $this->formatStateUsing(fn (string $state): string => headline($state));
     }
 
+    public function attribute(?string $attribute = null): TextInput
+    {
+        $attribute = $attribute ?? $this->getName();
+
+        return $this->formatStateUsing(fn (?Appointment $record = null) => $record?->getAttribute($attribute))->empty();
+    }
+
+    public function dayDate(): TextInput
+    {
+        return $this->formatStateUsing(
+            fn (?string $state = null) => filled($state) ? Carbon::parse($state)->toFormattedDayDateString() : null
+        )->empty();
+    }
+
     public function date(?string $column = null): TextInput
     {
         return $this->formatStateUsing(function ($record = null) use ($column) {
