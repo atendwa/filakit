@@ -41,7 +41,7 @@ trait UsesPermissionAssigner
     {
         $resources = is_array($resources) ? $resources : [$resources];
 
-        collect($resources)->each(function (string $resource) {
+        collect($resources)->each(function (string $resource): void {
             $object = app($resource);
 
             if ($object instanceof HasShieldPermissions) {

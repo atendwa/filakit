@@ -13,6 +13,7 @@ use Filament\Actions\RestoreAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Wizard;
 use Filament\Infolists\Components\KeyValueEntry;
 use Filament\Notifications\Notification;
 use Filament\Support\Enums\MaxWidth;
@@ -76,6 +77,11 @@ class FilakitServiceProvider extends ServiceProvider
         KeyValueEntry::configureUsing(
             fn (KeyValueEntry $keyValueEntry): KeyValueEntry => $keyValueEntry->columnSpanFull()
         );
+
+        Wizard::configureUsing(fn (Wizard $wizard): Wizard => $wizard
+            ->nextAction(fn (\Filament\Forms\Components\Actions\Action $action) => $action
+                ->icon('heroicon-o-arrow-right')->color('gray')->label('Next')->iconPosition('after'),
+            ));
 
         DeleteAction::configureUsing(
             fn (DeleteAction $deleteAction): DeleteAction => $deleteAction->icon('heroicon-o-trash')
