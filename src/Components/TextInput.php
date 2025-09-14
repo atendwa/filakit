@@ -28,9 +28,9 @@ class TextInput extends \Filament\Forms\Components\TextInput
         )->empty();
     }
 
-    public function date(?string $column = null): TextInput
+    public function date(?string $column = null, ?string $format = 'D, d M Y, H:i:s'): TextInput
     {
-        return $this->formatStateUsing(function ($record = null) use ($column) {
+        return $this->formatStateUsing(function ($record = null) use ($column, $format) {
             if (blank($record)) {
                 return null;
             }
@@ -42,7 +42,7 @@ class TextInput extends \Filament\Forms\Components\TextInput
                 $date = $record->date($column);
 
                 if ($date instanceof Carbon) {
-                    return $date->format('D, d M Y, H:i:s');
+                    return $date->format($format);
                 }
 
                 return null;
