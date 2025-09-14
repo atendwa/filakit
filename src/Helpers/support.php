@@ -80,7 +80,7 @@ if (! function_exists('modelUrl')) {
     /**
      * @throws Throwable
      */
-    function modelUrl(Model|string $model, string $route = 'view', ?string $panelId = null, mixed $routeKey = null): string
+    function modelUrl(Model|string $model, string $route = 'view', ?string $panelId = null, mixed $routeKey = null, ?Model $tenant = null): string
     {
         $params = [];
 
@@ -92,7 +92,7 @@ if (! function_exists('modelUrl')) {
             $params['record'] = $routeKey;
         }
 
-        return resource($model, $panelId)::getUrl($route, $params, panel: $panelId);
+        return resource($model, $panelId)::getUrl($route, $params, panel: $panelId, tenant: $tenant);
     }
 }
 
