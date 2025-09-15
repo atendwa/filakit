@@ -13,6 +13,10 @@ return [
             'light' => env('FILAMENT_LOGO_LIGHT_PATH'),
             'dark' => env('FILAMENT_DARK_PATH'),
         ],
+        'logo_sizes' => [
+            'auth' => '5.5rem',
+            'guest' => '10rem',
+        ],
         'favicon' => env('FILAMENT_FAVICON_PATH'),
         'font' => env('FILAMENT_FONT', 'Jost'),
         'colours' => [],

@@ -67,7 +67,10 @@ abstract class PanelProvider extends ServiceProvider
                 ->viteTheme(asString(config('filakit.theme.css')))->databaseNotifications()->widgets([])
                 ->login(asString(config('filakit.login_page')))->maxContentWidth('full')
                 ->globalSearch()->font(asString(config('filakit.theme.font')))->databaseTransactions()
-                ->brandLogoHeight(fn (): string => [true => '2.75rem', false => '5rem'][auth()->check()])
+                ->brandLogoHeight(fn (): string => [
+                    false => asString(config('filakit.theme.logo_sizes.guest')),
+                    true => asString(config('filakit.theme.logo_sizes.auth')),
+                ][auth()->check()])
                 ->middleware([
                     DispatchServingFilamentEvent::class, AddQueuedCookiesToResponse::class, AuthenticateSession::class,
                     ShareErrorsFromSession::class, DisableBladeIconComponents::class, SubstituteBindings::class,
