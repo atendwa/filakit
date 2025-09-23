@@ -10,9 +10,11 @@ use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\Wizard;
 use Filament\Infolists\Components\KeyValueEntry;
 use Filament\Notifications\Notification;
@@ -76,6 +78,15 @@ class FilakitServiceProvider extends ServiceProvider
 
         KeyValueEntry::configureUsing(
             fn (KeyValueEntry $keyValueEntry): KeyValueEntry => $keyValueEntry->columnSpanFull()
+        );
+
+        DatePicker::configureUsing(fn (DatePicker $datePicker): DatePicker => $datePicker
+            ->native(false)->closeOnDateSelection()
+        );
+
+        TimePicker::configureUsing(fn (TimePicker $timePicker): TimePicker => $timePicker
+            ->native(false)->minutesStep(15)
+            ->closeOnDateSelection()->seconds(false)
         );
 
         Wizard::configureUsing(fn (Wizard $wizard): Wizard => $wizard
