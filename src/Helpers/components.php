@@ -101,7 +101,7 @@ if (! function_exists('select')) {
     {
         $placeholder = str($name)->before('_id')->headline()->lower()->toString();
 
-        return Select::make($name)->required($required)->label(headline($placeholder))->placeholder(
+        return Select::make($name)->searchable()->required($required)->label(headline($placeholder))->placeholder(
             fn ($context): string => $context == 'view' ? 'N/A' : 'Select ' . $placeholder
         );
     }
