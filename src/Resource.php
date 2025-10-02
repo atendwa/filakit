@@ -21,8 +21,6 @@ class Resource extends \Filament\Resources\Resource
      */
     public static array $relations = [];
 
-    protected static ?string $defaultRecordTitleAttribute = 'name';
-
     /**
      * @throws Throwable
      */
