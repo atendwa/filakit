@@ -2,6 +2,10 @@
 
 All notable changes to `filakit` will be documented in this file.
 
+## v1.0.37 - 2025-10-05
+
+**Full Changelog**: https://github.com/atendwa/filakit/compare/v1.0.36...v1.0.37
+
 ## v1.0.36 - 2025-10-02
 
 **Full Changelog**: https://github.com/atendwa/filakit/compare/v1.0.35...v1.0.36
