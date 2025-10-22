@@ -18,7 +18,7 @@ class TextInput extends \Filament\Forms\Components\TextInput
     {
         $attribute = $attribute ?? $this->getName();
 
-        return $this->formatStateUsing(fn (?Appointment $record = null) => $record?->getAttribute($attribute))->empty();
+        return $this->formatStateUsing(fn (?Model $record = null) => $record?->getAttribute($attribute))->empty();
     }
 
     public function dayDate(): TextInput
