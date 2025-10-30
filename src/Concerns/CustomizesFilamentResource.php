@@ -26,7 +26,7 @@ trait CustomizesFilamentResource
 
     public static function getRecordTitleAttribute(): ?string
     {
-        return self::$recordTitleAttribute ?? self::$defaultRecordTitleAttribute;
+        return self::$recordTitleAttribute ?? self::$defaultRecordTitleAttribute ?? null;
     }
 
     /**
