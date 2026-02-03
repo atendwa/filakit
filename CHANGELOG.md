@@ -2,6 +2,18 @@
 
 All notable changes to `filakit` will be documented in this file.
 
+## v1.0.40 - 2026-02-03
+
+### What's Changed
+
+* chore(deps): bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/atendwa/filakit/pull/5
+
+### New Contributors
+
+* @dependabot[bot] made their first contribution in https://github.com/atendwa/filakit/pull/5
+
+**Full Changelog**: https://github.com/atendwa/filakit/compare/v1.0.39...v1.0.40
+
 ## v1.0.39 - 2025-10-30
 
 **Full Changelog**: https://github.com/atendwa/filakit/compare/v1.0.38...v1.0.39
