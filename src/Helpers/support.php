@@ -44,7 +44,7 @@ if (! function_exists('resource')) {
      */
     function resource(Model|string $record, ?string $panelId = null): Resource
     {
-        $panel = filament()->getCurrentPanel();
+        $panel = filament()->getCurrentOrDefaultPanel();
 
         if (filled($panelId)) {
             $panel = filament()->getPanel($panelId);

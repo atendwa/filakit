@@ -18,7 +18,7 @@ trait UsesStatusTabs
     private static string $statusColumn;
 
     /**
-     * @return array<string | int, Tab>
+     * @return array<string|int, \Filament\Schemas\Components\Tabs\Tab>
      *
      * @throws Throwable
      */
@@ -39,7 +39,7 @@ trait UsesStatusTabs
         );
 
         $fromStates = $states->map(
-            fn ($state, $key) => Tab::make(headline($key))->icon($icons[$key] ?? null)->badgeColor('gray')
+            fn ($state, $key) => \Filament\Schemas\Components\Tabs\Tab::make(headline($key))->icon($icons[$key] ?? null)->badgeColor('gray')
                 ->modifyQueryUsing(fn (Builder $query) => $query->whereIn(self::$statusColumn, $state))
         );
 
@@ -49,12 +49,12 @@ trait UsesStatusTabs
     }
 
     /**
-     * @return array<string, Tab>
+     * @return array<string, \Filament\Schemas\Components\Tabs\Tab>
      */
     private function allRecordsTab(array $icons): array
     {
         return [
-            'all' => Tab::make()->icon($icons['all'] ?? null)->modifyQueryUsing(fn (Builder $query) => $query),
+            'all' => \Filament\Schemas\Components\Tabs\Tab::make()->icon($icons['all'] ?? null)->modifyQueryUsing(fn (Builder $query) => $query),
         ];
     }
     //
@@ -78,16 +78,15 @@ trait UsesStatusTabs
     //
     //        $this->model = $model->newQuery()->selectRaw(implode(', ', $selects), $bindings)->firstOrFail();
     //    }
-
     /**
      * @param  array<string>  $states
      *
-     * @return array<string, Tab>
+     * @return array<string, \Filament\Schemas\Components\Tabs\Tab>
      */
     private function othersTab(array $states, array $icons): array
     {
         return [
-            'others' => Tab::make('Others')->icon($icons['others'] ?? null)->badgeColor('gray')
+            'others' => \Filament\Schemas\Components\Tabs\Tab::make('Others')->icon($icons['others'] ?? null)->badgeColor('gray')
                 ->modifyQueryUsing(fn (Builder $query) => $query->whereNotIn(self::$statusColumn, $states)),
         ];
     }

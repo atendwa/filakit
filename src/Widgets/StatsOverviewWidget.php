@@ -6,16 +6,16 @@ namespace Atendwa\Filakit\Widgets;
 
 class StatsOverviewWidget extends \Filament\Widgets\StatsOverviewWidget
 {
-    public int $columns = 2;
+    protected int|array|null $columns = 2;
 
     public static function isLazy(): bool
     {
         return false;
     }
 
-    protected function getColumns(): int
+    protected function getColumns(): int|array
     {
-        return $this->columns;
+        return $this->columns ?? 2;
     }
 
     protected function getPollingInterval(): ?string

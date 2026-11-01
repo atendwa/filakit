@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Atendwa\Filakit\Providers;
 
+use Filament\Support\Enums\Width;
 use Atendwa\Filakit\Table\Actions\CreateAction;
 use Atendwa\Filakit\Table\Actions\EditAction;
 use Filament\Actions\ActionGroup;
@@ -15,15 +16,14 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TimePicker;
-use Filament\Forms\Components\Wizard;
+use Filament\Schemas\Components\Wizard;
 use Filament\Infolists\Components\KeyValueEntry;
 use Filament\Notifications\Notification;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Support\Facades\FilamentIcon;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\ExportAction;
-use Filament\Tables\Actions\ImportAction;
-use Filament\Tables\Actions\ViewAction;
+use Filament\Actions\Action;
+use Filament\Actions\ExportAction;
+use Filament\Actions\ImportAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\ServiceProvider;
@@ -34,8 +34,8 @@ class FilakitServiceProvider extends ServiceProvider
     {
         $this->app->bind(\Filament\Actions\CreateAction::class, \Atendwa\Filakit\Actions\CreateAction::class);
         $this->app->bind(\Filament\Actions\EditAction::class, \Atendwa\Filakit\Actions\EditAction::class);
-        $this->app->bind(\Filament\Tables\Actions\CreateAction::class, CreateAction::class);
-        $this->app->bind(\Filament\Tables\Actions\EditAction::class, EditAction::class);
+        $this->app->bind(\Filament\Actions\CreateAction::class, CreateAction::class);
+        $this->app->bind(\Filament\Actions\EditAction::class, EditAction::class);
 
         $this->mergeConfigFrom(__DIR__ . '/../../config/filakit.php', 'filakit');
     }
@@ -54,17 +54,17 @@ class FilakitServiceProvider extends ServiceProvider
 
         FilamentIcon::register(['actions::view-action' => 'heroicon-o-arrow-long-right']);
 
-        ViewAction::configureUsing(
-            fn (ViewAction $viewAction): ViewAction => $viewAction->button()->iconPosition('after')->slideOver()
+        \Filament\Actions\ViewAction::configureUsing(
+            fn (\Filament\Actions\ViewAction $viewAction): \Filament\Actions\ViewAction => $viewAction->button()->iconPosition('after')->slideOver()
         );
 
-        ImportAction::configureUsing(
-            fn (ImportAction $importAction): ImportAction => $importAction->slideOver()->color('gray')
+        \Filament\Actions\ImportAction::configureUsing(
+            fn (\Filament\Actions\ImportAction $importAction): \Filament\Actions\ImportAction => $importAction->slideOver()->color('gray')
                 ->icon('heroicon-o-document-text')->chunkSize(50)
         );
 
-        ExportAction::configureUsing(
-            fn (ExportAction $exportAction): ExportAction => $exportAction->color('gray')
+        \Filament\Actions\ExportAction::configureUsing(
+            fn (\Filament\Actions\ExportAction $exportAction): \Filament\Actions\ExportAction => $exportAction->color('gray')
                 ->slideOver()->icon('heroicon-o-document-arrow-down')->chunkSize(50)
         );
 
@@ -89,8 +89,8 @@ class FilakitServiceProvider extends ServiceProvider
             ->closeOnDateSelection()->seconds(false)
         );
 
-        Wizard::configureUsing(fn (Wizard $wizard): Wizard => $wizard
-            ->nextAction(fn (\Filament\Forms\Components\Actions\Action $action) => $action
+        \Filament\Schemas\Components\Wizard::configureUsing(fn (\Filament\Schemas\Components\Wizard $wizard): \Filament\Schemas\Components\Wizard => $wizard
+            ->nextAction(fn (\Filament\Actions\Action $action) => $action
                 ->icon('heroicon-o-arrow-right')->color('gray')->label('Next')->iconPosition('after'),
             ));
 
@@ -122,8 +122,8 @@ class FilakitServiceProvider extends ServiceProvider
                 ->paginated([10, 25, 50, 100, 'all'])->defaultPaginationPageOption(10)->extremePaginationLinks()
                 ->defaultSort('updated_at', 'desc')->deselectAllRecordsWhenFiltered(false)
                 ->emptyStateIcon('heroicon-o-inbox')->emptyStateHeading('No records')->striped()
-                ->filtersFormWidth(MaxWidth::ThreeExtraLarge)->filtersTriggerAction(
-                    fn (Action $action): Action => $action->button()->slideOver()->icon('heroicon-o-funnel')
+                ->filtersFormWidth(Width::ThreeExtraLarge)->filtersTriggerAction(
+                    fn (\Filament\Actions\Action $action): \Filament\Actions\Action => $action->button()->slideOver()->icon('heroicon-o-funnel')
                 )
         );
     }

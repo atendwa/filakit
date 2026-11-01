@@ -6,7 +6,7 @@ namespace Atendwa\Filakit\Table\Actions;
 
 use Atendwa\Filakit\Concerns\CustomizesCreateActions;
 
-class CreateAction extends \Filament\Tables\Actions\CreateAction
+class CreateAction extends \Filament\Actions\CreateAction
 {
     use CustomizesCreateActions;
 

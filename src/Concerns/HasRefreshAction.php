@@ -20,7 +20,7 @@ trait HasRefreshAction
         return self::getUrl();
     }
 
-    protected function refresh(): void
+    public function refresh(): void
     {
         $this->redirect($this->getRefreshUrl(), true);
     }

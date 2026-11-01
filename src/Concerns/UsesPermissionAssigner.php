@@ -3,7 +3,6 @@
 namespace Atendwa\Filakit\Concerns;
 
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
-use BezhanSalleh\FilamentShield\Support\Utils;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
@@ -148,7 +147,7 @@ trait UsesPermissionAssigner
     protected function pagePermissionName(string $page): string
     {
         return Str::of(class_basename($page))
-            ->prepend(Str::of(Utils::getPagePermissionPrefix())->append('_')->toString())
+            ->prepend('page_')
             ->toString();
     }
 

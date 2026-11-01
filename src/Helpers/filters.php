@@ -81,7 +81,7 @@ if (! function_exists('date_filter')) {
      */
     function date_filter(?Carbon $start = null, ?Carbon $end = null): Filter
     {
-        return Filter::make('date_filter')->columnSpan(2)->columnSpanFull()->columns()->form([
+        return Filter::make('date_filter')->columnSpan(2)->columnSpanFull()->columns()->schema([
             DatePicker::make('start_date')->label('Start Date')->default($start ?? today()->startOfYear()),
             DatePicker::make('end_date')->label('End Date')->default($end ?? today()->endOfDay()),
         ])->indicateUsing(function (array $data): array {

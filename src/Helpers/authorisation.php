@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
-use BezhanSalleh\FilamentShield\Facades\FilamentShield;
+use Atendwa\Support\Services\PermissionKey;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Model;
 
@@ -64,7 +64,7 @@ if (! function_exists('permission')) {
     {
         throw_if(blank($resource) && blank($model), 'Resource / Model must be provided!');
 
-        return $prefix . '_' . FilamentShield::getPermissionIdentifier($resource ?? resource($model)::class);
+        return $prefix . '_' . PermissionKey::identifier($resource ?? resource($model)::class);
     }
 }
 

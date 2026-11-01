@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\ViewAction;
 use Atendwa\Filakit\Components\TextColumn;
 use Atendwa\Filakit\Components\TextEntry;
 use Atendwa\Filakit\Components\TextInput;
@@ -10,7 +11,6 @@ use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
-use Filament\Tables\Actions\ViewAction;
 use Illuminate\Database\Eloquent\Model;
 
 if (! function_exists('textEntry')) {

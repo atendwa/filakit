@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Atendwa\Filakit\Table\Actions;
 
+use Filament\Actions\Action;
 use Atendwa\Filakit\Concerns\CustomizesEditActions;
 use Filament\Actions\StaticAction;
 
-class EditAction extends \Filament\Tables\Actions\EditAction
+class EditAction extends \Filament\Actions\EditAction
 {
     use CustomizesEditActions;
 
@@ -16,12 +17,12 @@ class EditAction extends \Filament\Tables\Actions\EditAction
         return true;
     }
 
-    public function getModalCancelAction(): StaticAction
+    public function getModalCancelAction(): Action
     {
         return static::makeModalAction('Close')->close()->color('gray');
     }
 
-    public function getModalSubmitAction(): ?StaticAction
+    public function getModalSubmitAction(): ?Action
     {
         $action = static::makeModalAction('submit')->color('success')
             ->icon('heroicon-o-check-circle')->label('Save')
@@ -31,6 +32,6 @@ class EditAction extends \Filament\Tables\Actions\EditAction
             $action = $this->evaluate($this->modalSubmitAction, ['action' => $action]) ?? $action;
         }
 
-        return $action instanceof StaticAction ? $action : null;
+        return $action instanceof Action ? $action : null;
     }
 }
